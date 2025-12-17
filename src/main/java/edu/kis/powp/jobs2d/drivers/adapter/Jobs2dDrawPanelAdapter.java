@@ -29,10 +29,11 @@ public class Jobs2dDrawPanelAdapter extends DrawPanelController implements Job2d
 		
 	
 		DrawerFeature.getDrawerController().drawLine(line);
+		
+		drawLine(line);
+
 		this.startX = x;
 		this.startY = y;	
-
-		drawLine(line);
 	}
 
 	@Override
