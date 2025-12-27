@@ -8,6 +8,10 @@ import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.drivers.adapter.AbstractDriverAdapter;
 import edu.kis.powp.jobs2d.drivers.adapter.Jobs2dDrawPanelAdapter;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDrawerAdapter;
+import edu.kis.powp.jobs2d.drivers.command.ComplexCommand;
+import edu.kis.powp.jobs2d.drivers.command.DriverCommand;
+import edu.kis.powp.jobs2d.drivers.command.OperateToCommand;
+import edu.kis.powp.jobs2d.drivers.command.SetPositionCommand;
 import edu.kis.powp.jobs2d.events.SelectTestFigureOptionListener;
 import edu.kis.powp.jobs2d.features.DrawerFeature;
 import edu.kis.powp.jobs2d.features.DriverFeature;
@@ -30,6 +34,16 @@ public class TestJobs2dPatterns {
 		application.addTest("Figure Joe 1", selectTestFigureOptionListener);
 		application.addTest("Figure Joe 2", e -> FiguresJoe.figureScript2(DriverFeature.getDriverManager().getCurrentDriver()));
 		application.addTest("Figure Jane", e -> FiguresJane.figureScript(new AbstractDriverAdapter(0, 0,DriverFeature.getDriverManager().getCurrentDriver())));
+		application.addTest("Command Triangle", e -> {
+    		java.util.List<DriverCommand> commands = new java.util.ArrayList<>();
+   			commands.add(new SetPositionCommand(-60, -40));
+    		commands.add(new OperateToCommand(40, -40));   
+    		commands.add(new OperateToCommand(-60, 60));   
+    		commands.add(new OperateToCommand(-60, -40));  
+			DriverCommand rightTriangle = new ComplexCommand(commands);
+    		rightTriangle.execute(DriverFeature.getDriverManager().getCurrentDriver());
+		});
+
 
 	}
 
